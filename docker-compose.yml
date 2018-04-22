@@ -1,0 +1,19 @@
+version: "3"
+services:
+  api:
+    container_name: api
+    restart: always
+    build: .
+    volumes:
+      - .:/keystore
+    ports:
+      - "3000:3000"
+    links:
+      - mongodb 
+  mongodb:
+    container_name: mongodb
+    image: mongo:latest
+    volumes:
+      - /data/mongodb/db:/data/db
+    ports:
+      - "27018:27017"

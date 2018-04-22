@@ -1,0 +1,3 @@
+NODE_ENV=testing
+MONGODB_URL=mongodb://keybase
+PORT=3000

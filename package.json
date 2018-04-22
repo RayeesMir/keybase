@@ -1,0 +1,13 @@
+{
+    "name": "keystore",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "start": "node ./src/index.js"
+    },
+    "dependencies": {
+        "body-parser": "~1.18.2",
+        "express": "~4.15.5",
+        "mongoose": "^5.0.15"
+    }
+}
