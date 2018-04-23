@@ -1,3 +1,4 @@
 NODE_ENV=testing
-MONGODB_URL=mongodb://keybase
+TEST_DB_URL=mongodb://localhost/keybase
+PROD_DB_URL=mongodb://localhost/keybase
 PORT=3000

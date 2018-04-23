@@ -1,10 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const KeyStore = require('../controller');
+const KeyStore = require('../controllers');
 
-router.route('/object')
-    .post(KeyStore.saveToStore);
-router.route('/object/:key')
-    .get(KeyStore.getFromStore);
+router.post('/', KeyStore.saveToStore);
+router.get('/:key', KeyStore.getFromStore);
 
 module.exports = router;

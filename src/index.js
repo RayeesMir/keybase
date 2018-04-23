@@ -1,22 +1,50 @@
+require('dotenv').config({ path: '.testenv', silent: true });
 const app = require('express')();
 const bodyParser = require('body-parser');
+const db = require('./db');
+const routes = require('./routes');
+const log = console.log;
+const Errors = require('./errors');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// connect Database
+if (process.env.NODE_ENV === 'testing') {
+    db.connect(process.env.TEST_DB_URL);
+} else {
+    db.connect(process.env.PROD_DB_URL);
+}
+
+app.use('/object', routes);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-    var err = new Error('Not Found');
-    err.status = 404;
-    res.statusCode = 404;
-    res.json(err);
-    next(err);
+    next(new Errors.NotFoundError());
+});
+
+//error handler
+app.use((err, req, res, next) => {
+    log("Error ", err);
+    Errors.errorHandler(err, req, res, next);
+    // res.statusCode = err.statusCode || 400;
+    // res.json(err);
 });
 
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => console.log('Listening on port ', port));
+const server = app.listen(port, function() {
+    const host = server.address().address;
+    log('listening on http://%s:%s', host, process.env.PORT);
+});
+
+process.on('uncaughtException', (error) => {
+    console.error('Caught exception:', error);
+});
+
+process.on('unhandledRejection', (reason, prom) => {
+    log('Unhandled Rejection at:', prom, 'reason:', reason);
+});
 
 module.exports = app;
