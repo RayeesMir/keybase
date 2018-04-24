@@ -8,14 +8,11 @@ module.exports = {
     connect: (url) => {
 
         //Connect to database
-        mongoose.connect(url);
+        mongoose.connect(url).then(con => log("Connected to ", url)).catch(error => console.error("Unable to connect"));
 
         // CONNECTION EVENTS
-        // When successfully connected
-        mongoose.connection.on('connected', () => log('Mongoose connection open to ' + url));
-
         // If the connection throws an error
-        mongoose.connection.on('error', (error) => logError('Mongoose connection error: ' + error));
+        mongoose.connection.on('error', error => logError('Mongoose connection error: ' + error));
 
         // When the connection is disconnected
         mongoose.connection.on('disconnected', () => log('Mongoose connection disconnected'));
