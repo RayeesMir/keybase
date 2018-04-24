@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'development') {
 } else {
     db.connect(process.env.PROD_MONGODB_URL);
 }
-app.get('/',(request,response)=>response.json({message:"Welcome to keybase"}));
+app.get('/', (request, response) => response.json({ message: "Welcome to keybase" }));
 
 app.use('/object', routes);
 
