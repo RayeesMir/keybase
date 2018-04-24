@@ -26,5 +26,6 @@ Keybase Exposes API with following endpoints
 -  `npm test`
 
 ## Docker 
-- `docker compose up`
+- `docker-compose up`
+if it doesn't work may be u  need to change mongodb service volumes path as it different on Mac
 
