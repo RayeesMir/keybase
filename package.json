@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "start": "node ./src/index.js",
-        "test": "mocha --timeout 15000 test/*.test.js"
+        "test": "mocha --timeout 15000 test/*.js"
     },
     "dependencies": {
         "body-parser": "~1.18.2",

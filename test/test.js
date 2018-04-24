@@ -117,21 +117,13 @@ describe('POST /object', () => {
 describe('GET /object/:key', () => {
 
     let name;
-    let gender;
-    let age;
-    let color;
-
     before('create keys', () => {
-        name = Keys.create({ key: 'name', value: 'Rayees' });
-        gender = Keys.create({ key: 'gender', value: 'male' });
-        age = Keys.create({ key: 'age', value: 27 });
-        color = Keys.create({ key: 'color', value: 'white' });
         return Keys.remove()
             .then((result) => {
-                return Promise.all([name, gender, age, color]);
+                return Keys.create({ key: 'name', value: 'Rayees' });
             })
             .then((result) => {
-                [name, gender, age, color] = result;
+                name = result;
             })
             .catch((error) => {
                 throw error;
