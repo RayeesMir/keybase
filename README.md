@@ -8,7 +8,8 @@ Keybase Exposes API with following endpoints
  1. ```POST /object```  Accepts a key(string) and value(some json blob/string) and stores them in mongodb database.If an existing key is sent,new version of document is created with updated values
  1. ```GET /object/:key``` Accept a key and return the latest value of the key.this enpoint also accepts timestamp as query parameter. GET ```/object/:key?timestamp=``` (unix timestamp in miliseconds) returns the value of the key at that particular time. if timpestamp is before creation of key, API will return 404 not found. 
 ## Hosted
- ec2-13-126-254-11.ap-south-1.compute.amazonaws.com:3000
+
+   http://ec2-13-126-254-11.ap-south-1.compute.amazonaws.com:3000/
 
 ## Technology
 
