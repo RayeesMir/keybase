@@ -9,6 +9,45 @@ before('clean database', () => {
     return Keys.remove();
 });
 
+describe('Create Get and Update Keys, Sequecially', () => {
+
+    it('Should create,get and update key ', () => {
+        return Keys.create({ key: 'country', value: 'Singapore' })
+            .then((result) => {
+                expect(result).to.have.property('value');
+                expect(result).to.have.property('key');
+                expect(result).to.have.property('timestamp');
+                expect(result.key).to.be.equal('country');
+                expect(result.value).to.be.equal('Singapore');
+                return chai.request(app).get("/object/" + result.key + "?timestamp=" + (result.timestamp - 1));
+            })
+            .then((response) => {
+                expect(response.body.status).to.have.property('code');
+                expect(response.body.status).to.have.property('message');
+                expect(response.body.status.code).to.be.equal(404);
+                expect(response).to.have.status(404);
+                return Keys.create({ key: 'country', value: 'Thailand' });
+            })
+            .then((result) => {
+                expect(result).to.have.property('value');
+                expect(result).to.have.property('key');
+                expect(result).to.have.property('timestamp');
+                expect(result.key).to.be.equal('country');
+                expect(result.value).to.be.equal('Thailand');
+                return chai.request(app).get("/object/" + result.key + "?timestamp=" + (result.timestamp - 1));
+            })
+            .then((result) => {
+                expect(result.body).to.have.property('value');
+                expect(result.body.value).to.be.equal('Singapore');
+            })
+            .catch((error) => {
+                throw error;
+            });
+    });
+});
+
+
+
 describe('POST /object', () => {
 
     it('should throw error for invalid payload', () => {
@@ -177,5 +216,4 @@ describe('GET /object/:key', () => {
                 throw error;
             });
     });
-
 });
