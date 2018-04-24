@@ -1,3 +1,4 @@
+'use strict';
 require('dotenv').config({ path: '.testenv', silent: true });
 const app = require('express')();
 const bodyParser = require('body-parser');
@@ -10,10 +11,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // connect Database
-if (process.env.NODE_ENV === 'testing') {
-    db.connect(process.env.TEST_DB_URL);
+if (process.env.NODE_ENV === 'development') {
+    db.connect(process.env.TEST_MONGODB_URL);
 } else {
-    db.connect(process.env.PROD_DB_URL);
+    db.connect(process.env.PROD_MONGODB_URL);
 }
 
 app.use('/object', routes);

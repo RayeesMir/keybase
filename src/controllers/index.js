@@ -1,6 +1,6 @@
 const Keys = require('../models');
 const Errors = require('../errors');
-
+'use strict';
 module.exports = {
     saveToStore: (request, response, next) => {
         const payload = request.body;
@@ -9,13 +9,13 @@ module.exports = {
 
         // check if both key and value are present
         if (key && value) {
-            new Keys({ key, value }).save()
+            Keys.create({ key, value })
                 .then(result => {
                     //get timestamp from result
                     const { timestamp } = result;
                     response.status(201).json({ key, value, timestamp });
                 })
-                .catch(err => next(error));
+                .catch(err => next(err));
         } else {
             // payload is empty
             return next(new Errors.BadRequestError('Bad request'));

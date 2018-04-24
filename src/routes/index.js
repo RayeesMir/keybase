@@ -1,8 +1,9 @@
+'use strict';
 const express = require('express');
 const router = express.Router();
-const KeyStore = require('../controllers');
+const keyCtrl = require('../controllers');
 
-router.post('/', KeyStore.saveToStore);
-router.get('/:key', KeyStore.getFromStore);
+router.post('/', keyCtrl.saveToStore);
+router.get('/:key', keyCtrl.getFromStore);
 
 module.exports = router;

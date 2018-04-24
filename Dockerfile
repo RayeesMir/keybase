@@ -1,5 +1,5 @@
 
-FROM node:boron
+FROM node:carbon
 
 RUN mkdir keystore
 WORKDIR keystore

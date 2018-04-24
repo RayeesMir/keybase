@@ -1,3 +1,4 @@
+'use strict';
 const mongoose = require('mongoose');
 const KeySchema = new mongoose.Schema({
     key: {
@@ -19,9 +20,16 @@ const KeySchema = new mongoose.Schema({
     }
 });
 
+/**
+ * @param {String} key 
+ * @param {Number} timestamp 
+ * @returns Object matching condition
+ */
+
 KeySchema.statics.findKey = function(key, timestamp) {
+
     if (key && timestamp) {
-        return this.findOne({ key: key }).select('-_id value').where({ 'timestamp': { $lte: timestamp } }).sort({ timestamp: 'desc' }).lean();
+        return this.findOne({ key: key }).select('-_id value').where({ 'timestamp': { $lte: (timestamp) } }).sort({ timestamp: 'desc' }).lean();
     } else if (key) {
         return this.findOne({ key: key }).select('-_id value').sort({ timestamp: 'desc' }).lean();
     }

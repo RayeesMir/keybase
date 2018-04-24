@@ -10,10 +10,15 @@ services:
       - "3000:3000"
     links:
       - mongodb 
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - TEST_MONGODB_URL=mongodb://mongodb/testkeybase
+      - PROD_MONGODB_URL=mongodb://mongodb/keybase
   mongodb:
     container_name: mongodb
     image: mongo:latest
     volumes:
-      - /data/mongodb/db:/data/db
+      - /tmp/data:/data/db
     ports:
       - "27018:27017"
